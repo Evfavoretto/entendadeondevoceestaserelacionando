@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
@@ -6,8 +6,8 @@
   <meta name="color-scheme" content="light only" />
   <meta name="theme-color" content="#ffffff" />
 
-  <title>Entenda de onde você está se relacionando | Relacionamentos Conscientes</title>
-  <meta name="description" content="Formulário de consciência emocional do relacionamento. Responda SIM ou NÃO e envie automaticamente no WhatsApp para receber sua devolutiva." />
+  <title>Entenda de onde você está se relacionando</title>
+  <meta name="description" content="Formulário de consciência emocional: responda SIM ou NÃO e envie automaticamente suas respostas no WhatsApp para receber a devolutiva." />
 
   <style>
     :root{
@@ -26,12 +26,13 @@
 
     *{box-sizing:border-box}
 
-    /* ✅ tentar ocultar headers/títulos injetados por temas */
+    /* ✅ tentar esconder títulos/headers automáticos do GitHub Pages (temas/Jekyll) */
     header, .site-header, .page-header, .project-name, .project-tagline,
     #header, #site-header, #page-header,
     body > h1:first-child, body > header:first-child,
     .markdown-body > h1:first-child,
-    .container-lg > h1:first-child{
+    .container-lg > h1:first-child,
+    .container > h1:first-child{
       display:none !important;
       height:0 !important;
       margin:0 !important;
@@ -49,17 +50,35 @@
       line-height:1.55;
     }
 
+    /* ✅ faixa “tampa GitHub” (coloque o arquivo DOCTYPE html.png no mesmo diretório do HTML)
+       Se estiver em uma pasta (ex: /assets), troque a URL abaixo. */
+    .gh-cover{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: 120px;
+      background:
+        url("DOCTYPE%20html.png") center/cover no-repeat,
+        linear-gradient(135deg, rgba(108,75,191,0.20), rgba(47,125,225,0.16));
+      border-bottom: 1px solid rgba(31,36,48,0.08);
+    }
+    @media(max-width: 520px){
+      .gh-cover{ height: 140px; }
+    }
+
     .wrap{
       max-width: 980px;
       margin: 0 auto;
-      padding: 28px 18px 60px;
+      padding: 20px 18px 60px;
     }
 
+    /* Top */
     .top{
       display:grid;
       grid-template-columns: 1.2fr 0.8fr;
       gap: 18px;
       align-items: stretch;
+      margin-top: 16px;
     }
     @media(max-width: 900px){
       .top{grid-template-columns: 1fr}
@@ -90,20 +109,20 @@
     }
 
     .title{
-      margin: 14px 0 8px;
-      font-size: 34px;
+      margin: 14px 0 10px;
+      font-size: 36px;
       line-height:1.12;
       letter-spacing:-.4px;
     }
     @media(max-width: 520px){
-      .title{font-size: 28px;}
+      .title{font-size: 30px;}
     }
 
     .subtitle{
       margin:0;
       color: var(--muted);
       font-size: 16.5px;
-      max-width: 64ch;
+      max-width: 70ch;
     }
 
     .mini{
@@ -131,6 +150,7 @@
       box-shadow: var(--shadow2);
       overflow: visible;
     }
+
     .side h3{
       margin: 0 0 10px;
       font-size: 16px;
@@ -163,17 +183,18 @@
       color:#2d3f66;
       margin-bottom: 12px;
     }
-    .steps{display:grid; gap:10px;}
+    .steps{ display:grid; gap:10px; margin-top: 4px; }
     .step{
       background:#fff;
       border:1px solid var(--line);
       border-radius: 14px;
-      padding: 12px;
+      padding: 12px 12px;
       box-shadow: 0 8px 18px rgba(20,12,45,0.06);
       color:#2a3242;
     }
     .step b{ color:#2d2250; }
 
+    /* Sections */
     .section{
       margin-top: 18px;
       background: var(--card);
@@ -193,23 +214,14 @@
       font-size: 14.5px;
     }
 
-    .leadBlock{
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(108,75,191,0.06);
-      border: 1px solid rgba(108,75,191,0.14);
-      color:#2d2250;
-      margin: 10px 0 16px;
-      font-size: 14.5px;
-    }
-
+    /* Questions */
     .q{
       border-top: 1px solid var(--line);
       padding: 14px 0;
       display:flex;
-      gap: 14px;
-      align-items:flex-start;
-      justify-content: space-between;
+      flex-direction: column; /* ✅ opções sempre abaixo da pergunta */
+      gap: 10px;
+      align-items: stretch;
     }
     .q:first-of-type{border-top: none; padding-top: 0;}
     .q:last-of-type{padding-bottom: 0;}
@@ -217,56 +229,59 @@
     .qtext{
       flex: 1;
       min-width: 0;
-      padding-right: 12px;
     }
     .qtext .n{
       display:inline-block;
-      font-weight: 850;
+      font-weight: 900;
       color: rgba(108,75,191,0.95);
       margin-right: 8px;
     }
     .qtext .t{
       font-size: 15.5px;
       color: #1f2430;
+      word-break: normal;
       hyphens: auto;
     }
 
     .opts{
-      display:flex;
-      gap:10px;
-      flex-wrap: wrap;
-      justify-content:flex-end;
-      align-items:center;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
 
-    .opt{position:relative;}
+    .opt{ position:relative; }
     .opt input{
       position:absolute;
       opacity:0;
       pointer-events:none;
     }
     .opt label{
+      width: 100%;
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap: 8px;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 999px;
       border: 1px solid var(--line);
       background: #fff;
       color: #2b3342;
       font-size: 14px;
-      font-weight: 750;
+      font-weight: 800;
       cursor:pointer;
       user-select:none;
       transition: .18s ease;
       box-shadow: 0 6px 18px rgba(20,12,45,0.06);
       white-space:nowrap;
     }
+
     .opt input:checked + label{
       border-color: rgba(108,75,191,0.55);
       background: rgba(108,75,191,0.10);
       color:#2d2250;
     }
+
     .opt label .dot{
       width: 9px;
       height: 9px;
@@ -277,28 +292,6 @@
       background: linear-gradient(135deg, var(--primary), var(--accent));
     }
 
-    /* ✅ opções embaixo no mobile */
-    @media(max-width: 720px){
-      .q{
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-      }
-      .qtext{ padding-right: 0; }
-      .opts{
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        justify-content: start;
-      }
-      .opt label{
-        width: 100%;
-        justify-content: center;
-        padding: 12px 14px;
-      }
-    }
-
     .final{
       margin-top: 18px;
       background: linear-gradient(135deg, rgba(108,75,191,0.12), rgba(47,125,225,0.10));
@@ -307,6 +300,7 @@
       padding: 26px;
       box-shadow: var(--shadow);
     }
+
     .final h2{
       margin: 0 0 10px;
       font-size: 22px;
@@ -368,7 +362,6 @@
       font-size: 15px;
       transition: transform .12s ease, opacity .12s ease;
       user-select:none;
-      white-space:nowrap;
     }
     .btn:active{transform: scale(0.99);}
     .btn-primary{
@@ -396,32 +389,57 @@
     }
 
     .req{ color:#a63d3d; font-weight: 900; }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(31,36,48,0.92);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 80;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px);
+    }
   </style>
 </head>
 
 <body>
+  <div class="gh-cover" aria-hidden="true"></div>
+
   <div class="wrap">
+
     <div class="top">
       <div class="hero">
-        <div class="badge">🧭 Relacionamentos Conscientes</div>
+        <div class="badge">🧠 Formulário do Vínculo</div>
         <h1 class="title">Entenda de onde você está se relacionando</h1>
         <p class="subtitle">
-          O amor não acabou. Muitas vezes, o que acaba é o lugar emocional de onde vocês se relacionam.
-          Este formulário é um espelho: clareza sem culpa, com presença e responsabilidade.
+          O amor não acabou. O que muitas vezes muda é o lugar emocional de onde vocês se relacionam.
+          Responda <strong>SIM</strong> ou <strong>NÃO</strong> e, no final, envie automaticamente suas respostas no WhatsApp para receber a devolutiva.
         </p>
 
         <div class="mini">
-          <div class="pill">✅ Responda SIM / NÃO</div>
-          <div class="pill">🧠 Consciência emocional</div>
+          <div class="pill">✅ Respostas rápidas: SIM / NÃO</div>
           <div class="pill">📲 Envio automático no WhatsApp</div>
+          <div class="pill">🤝 Sem culpa, com consciência</div>
         </div>
       </div>
 
       <div class="side">
-        <h3>🧭 Orientação</h3>
+        <h3>🧭 Como preencher</h3>
         <p>
-          Leia com calma e responda com honestidade.<br />
-          Marque <b>SIM</b> ou <b>NÃO</b> apenas nas perguntas.
+          Leia cada pergunta com calma.<br />
+          Marque <strong>SIM</strong> ou <strong>NÃO</strong> com honestidade.<br />
+          Não existe “certo” — existe clareza.
         </p>
 
         <div class="rule">
@@ -429,18 +447,23 @@
           <div class="steps">
             <div class="step"><b>Passo 1:</b> responda todas as perguntas.</div>
             <div class="step"><b>Passo 2:</b> clique em <b>“Enviar respostas no WhatsApp”</b>.</div>
-            <div class="step"><b>Passo 3:</b> eu recebo e te devolvo a leitura do seu padrão de vínculo.</div>
+            <div class="step"><b>Passo 3:</b> eu recebo, analiso e te devolvo a leitura do vínculo.</div>
           </div>
         </div>
 
-        <p class="small">*Se preferir, apenas uma pessoa pode responder pelo casal.</p>
+        <p class="small">
+          *Se preferir, apenas uma pessoa pode responder pelo casal.
+        </p>
       </div>
     </div>
 
-    <form id="quiz">
-      <!-- BLOCO 1 -->
+    <form id="quiz" autocomplete="off">
+
       <div class="section">
-        <h2>🔍 Distância silenciosa</h2>
+        <h2>🔹 Sinais comuns no relacionamento</h2>
+        <p class="note">Marque SIM ou NÃO em cada pergunta.</p>
+
+        <h2 style="margin-top:16px;">1️⃣ Distância silenciosa</h2>
         <p class="note">Quando o casal funciona, mas deixa de se encontrar.</p>
 
         <div class="q">
@@ -450,6 +473,7 @@
             <span class="opt"><input type="radio" name="q1" id="q1n" value="NÃO"><label for="q1n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
           <div class="qtext"><span class="n">2.</span><span class="t">Mesmo estando juntos, existe sensação de afastamento emocional?</span></div>
           <div class="opts">
@@ -457,6 +481,7 @@
             <span class="opt"><input type="radio" name="q2" id="q2n" value="NÃO"><label for="q2n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
           <div class="qtext"><span class="n">3.</span><span class="t">O silêncio entre nós pesa mais do que aproxima?</span></div>
           <div class="opts">
@@ -464,6 +489,7 @@
             <span class="opt"><input type="radio" name="q3" id="q3n" value="NÃO"><label for="q3n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
           <div class="qtext"><span class="n">4.</span><span class="t">Nos encontramos pouco como casal, mesmo convivendo diariamente?</span></div>
           <div class="opts">
@@ -471,11 +497,8 @@
             <span class="opt"><input type="radio" name="q4" id="q4n" value="NÃO"><label for="q4n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
-      </div>
 
-      <!-- BLOCO 2 -->
-      <div class="section">
-        <h2>🔍 Defesa e reatividade</h2>
+        <h2 style="margin-top:18px;">2️⃣ Defesa e reatividade</h2>
         <p class="note">Quando a conversa vira proteção, não encontro.</p>
 
         <div class="q">
@@ -485,6 +508,7 @@
             <span class="opt"><input type="radio" name="q5" id="q5n" value="NÃO"><label for="q5n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
           <div class="qtext"><span class="n">6.</span><span class="t">As conversas costumam terminar sem entendimento real?</span></div>
           <div class="opts">
@@ -492,13 +516,15 @@
             <span class="opt"><input type="radio" name="q6" id="q6n" value="NÃO"><label for="q6n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
-          <div class="qtext"><span class="n">7.</span><span class="t">Eu evito falar certos assuntos para não gerar conflito?</span></div>
+          <div class="qtext"><span class="n">7.</span><span class="t">Evito falar certos assuntos para não gerar conflito?</span></div>
           <div class="opts">
             <span class="opt"><input type="radio" name="q7" id="q7s" value="SIM" required><label for="q7s"><span class="dot"></span>SIM</label></span>
             <span class="opt"><input type="radio" name="q7" id="q7n" value="NÃO"><label for="q7n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
           <div class="qtext"><span class="n">8.</span><span class="t">Sinto que preciso me proteger emocionalmente nas conversas?</span></div>
           <div class="opts">
@@ -506,11 +532,8 @@
             <span class="opt"><input type="radio" name="q8" id="q8n" value="NÃO"><label for="q8n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
-      </div>
 
-      <!-- BLOCO 3 -->
-      <div class="section">
-        <h2>🔍 Desequilíbrio de troca</h2>
+        <h2 style="margin-top:18px;">3️⃣ Desequilíbrio de troca</h2>
         <p class="note">Quando amar começa a cansar.</p>
 
         <div class="q">
@@ -520,6 +543,7 @@
             <span class="opt"><input type="radio" name="q9" id="q9n" value="NÃO"><label for="q9n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
           <div class="qtext"><span class="n">10.</span><span class="t">Costumo ceder para evitar problemas ou discussões?</span></div>
           <div class="opts">
@@ -527,8 +551,398 @@
             <span class="opt"><input type="radio" name="q10" id="q10n" value="NÃO"><label for="q10n"><span class="dot"></span>NÃO</label></span>
           </div>
         </div>
+
         <div class="q">
           <div class="qtext"><span class="n">11.</span><span class="t">Já me senti sobrecarregado(a) ou injustiçado(a) no relacionamento?</span></div>
           <div class="opts">
             <span class="opt"><input type="radio" name="q11" id="q11s" value="SIM" required><label for="q11s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio"
+            <span class="opt"><input type="radio" name="q11" id="q11n" value="NÃO"><label for="q11n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">12.</span><span class="t">Tenho a sensação de carregar o vínculo quase sozinho(a)?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q12" id="q12s" value="SIM" required><label for="q12s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q12" id="q12n" value="NÃO"><label for="q12n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>🔹 Lugar emocional de onde eu me relaciono</h2>
+        <p class="note">Marque SIM ou NÃO em cada pergunta.</p>
+
+        <h2 style="margin-top:16px;">Lugar de criança</h2>
+        <p class="note">Dependência emocional e expectativa de cuidado.</p>
+
+        <div class="q">
+          <div class="qtext"><span class="n">13.</span><span class="t">Espero que o outro me acalme quando estou mal?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q13" id="q13s" value="SIM" required><label for="q13s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q13" id="q13n" value="NÃO"><label for="q13n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">14.</span><span class="t">Tenho dificuldade de lidar sozinho(a) com frustrações no relacionamento?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q14" id="q14s" value="SIM" required><label for="q14s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q14" id="q14n" value="NÃO"><label for="q14n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">15.</span><span class="t">Fico muito abalado(a) quando o outro se afasta emocionalmente?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q15" id="q15s" value="SIM" required><label for="q15s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q15" id="q15n" value="NÃO"><label for="q15n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">16.</span><span class="t">Espero que o parceiro perceba o que sinto sem que eu precise falar?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q16" id="q16s" value="SIM" required><label for="q16s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q16" id="q16n" value="NÃO"><label for="q16n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <h2 style="margin-top:18px;">Lugar de pai/mãe do parceiro</h2>
+        <p class="note">Controle, correção e cobrança.</p>
+
+        <div class="q">
+          <div class="qtext"><span class="n">17.</span><span class="t">Costumo corrigir, cobrar ou orientar o outro?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q17" id="q17s" value="SIM" required><label for="q17s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q17" id="q17n" value="NÃO"><label for="q17n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">18.</span><span class="t">Sinto que preciso ensinar o parceiro a agir diferente?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q18" id="q18s" value="SIM" required><label for="q18s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q18" id="q18n" value="NÃO"><label for="q18n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">19.</span><span class="t">Fico frustrado(a) quando o outro não corresponde às expectativas?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q19" id="q19s" value="SIM" required><label for="q19s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q19" id="q19n" value="NÃO"><label for="q19n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">20.</span><span class="t">Assumi mais responsabilidade emocional do que gostaria?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q20" id="q20s" value="SIM" required><label for="q20s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q20" id="q20n" value="NÃO"><label for="q20n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <h2 style="margin-top:18px;">Lugar de salvador(a)</h2>
+        <p class="note">Sustentação unilateral do vínculo.</p>
+
+        <div class="q">
+          <div class="qtext"><span class="n">21.</span><span class="t">Sinto que, se eu não segurar, a relação desmorona?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q21" id="q21s" value="SIM" required><label for="q21s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q21" id="q21n" value="NÃO"><label for="q21n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">22.</span><span class="t">Abro mão de mim para manter a relação em pé?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q22" id="q22s" value="SIM" required><label for="q22s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q22" id="q22n" value="NÃO"><label for="q22n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">23.</span><span class="t">Evito expor meus limites para não magoar o outro?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q23" id="q23s" value="SIM" required><label for="q23s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q23" id="q23n" value="NÃO"><label for="q23n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">24.</span><span class="t">Já senti que faço muito e recebo pouco?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q24" id="q24s" value="SIM" required><label for="q24s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q24" id="q24n" value="NÃO"><label for="q24n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <h2 style="margin-top:18px;">Lugar de fuga</h2>
+        <p class="note">Evitar sentir, conversar ou enfrentar.</p>
+
+        <div class="q">
+          <div class="qtext"><span class="n">25.</span><span class="t">Quando a conversa fica difícil, eu me fecho ou me afasto?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q25" id="q25s" value="SIM" required><label for="q25s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q25" id="q25n" value="NÃO"><label for="q25n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">26.</span><span class="t">Prefiro o silêncio a enfrentar conflitos emocionais?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q26" id="q26s" value="SIM" required><label for="q26s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q26" id="q26n" value="NÃO"><label for="q26n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">27.</span><span class="t">Uso trabalho, celular ou rotina para evitar conversas profundas?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q27" id="q27s" value="SIM" required><label for="q27s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q27" id="q27n" value="NÃO"><label for="q27n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="qtext"><span class="n">28.</span><span class="t">Falar sobre sentimentos me gera mais desgaste do que solução?</span></div>
+          <div class="opts">
+            <span class="opt"><input type="radio" name="q28" id="q28s" value="SIM" required><label for="q28s"><span class="dot"></span>SIM</label></span>
+            <span class="opt"><input type="radio" name="q28" id="q28n" value="NÃO"><label for="q28n"><span class="dot"></span>NÃO</label></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="final">
+        <h2>✅ Finalizar e enviar automaticamente</h2>
+        <p>
+          Ao clicar no botão abaixo, suas respostas serão organizadas automaticamente e abertas no WhatsApp já prontas para envio.
+          <strong>Depois é só apertar “Enviar” no WhatsApp.</strong>
+        </p>
+
+        <div class="summary">
+          <strong>Resumo do preenchimento</strong>
+          <div class="row">
+            <div class="count">
+              <span class="chip" id="countYes">SIM: 0</span>
+              <span class="chip" id="countNo">NÃO: 0</span>
+              <span class="chip" id="countMiss">Faltam: 28</span>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button type="button" class="btn btn-ghost" id="btnCopy">Copiar texto</button>
+              <button type="submit" class="btn btn-primary" id="btnSend">Enviar respostas no WhatsApp</button>
+            </div>
+          </div>
+
+          <div class="small">
+            <span class="req">*</span> O envio só é liberado quando todas as perguntas forem respondidas.
+          </div>
+        </div>
+
+        <div class="footer">
+          © <span id="year"></span> • Relacionamentos Conscientes • Formulário do Vínculo
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="toast" id="toast">Copiado!</div>
+
+  <script>
+    // =========================
+    // CONFIG
+    // =========================
+    const WHATS_NUMBER = "5549998110445";     // Evandro - 55 + DDD + número
+    const RESPONSAVEL  = "Evandro Favoretto"; // aparece no WhatsApp
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form     = document.getElementById("quiz");
+    const btnCopy  = document.getElementById("btnCopy");
+    const btnSend  = document.getElementById("btnSend");
+
+    const countYes  = document.getElementById("countYes");
+    const countNo   = document.getElementById("countNo");
+    const countMiss = document.getElementById("countMiss");
+
+    const toast = document.getElementById("toast");
+
+    const TOTAL = 28;
+
+    // blocos para somatórios (ajuda você a calcular depois)
+    const blocks = [
+      { key: "distancia",  title: "Distância silenciosa", from: 1,  to: 4 },
+      { key: "defesa",     title: "Defesa e reatividade", from: 5,  to: 8 },
+      { key: "troca",      title: "Desequilíbrio de troca", from: 9, to: 12 },
+      { key: "crianca",    title: "Lugar de criança", from: 13, to: 16 },
+      { key: "pai_mae",    title: "Lugar de pai/mãe do parceiro", from: 17, to: 20 },
+      { key: "salvador",   title: "Lugar de salvador(a)", from: 21, to: 24 },
+      { key: "fuga",       title: "Lugar de fuga", from: 25, to: 28 }
+    ];
+
+    const questions = [
+      "1) Sentimos que conversamos mais sobre rotina do que sobre o que sentimos?",
+      "2) Mesmo estando juntos, existe sensação de afastamento emocional?",
+      "3) O silêncio entre nós pesa mais do que aproxima?",
+      "4) Nos encontramos pouco como casal, mesmo convivendo diariamente?",
+
+      "5) Quando um fala, o outro já se defende?",
+      "6) As conversas costumam terminar sem entendimento real?",
+      "7) Evito falar certos assuntos para não gerar conflito?",
+      "8) Sinto que preciso me proteger emocionalmente nas conversas?",
+
+      "9) Sinto que me esforço mais do que o outro para manter a relação?",
+      "10) Costumo ceder para evitar problemas ou discussões?",
+      "11) Já me senti sobrecarregado(a) ou injustiçado(a) no relacionamento?",
+      "12) Tenho a sensação de carregar o vínculo quase sozinho(a)?",
+
+      "13) Espero que o outro me acalme quando estou mal?",
+      "14) Tenho dificuldade de lidar sozinho(a) com frustrações no relacionamento?",
+      "15) Fico muito abalado(a) quando o outro se afasta emocionalmente?",
+      "16) Espero que o parceiro perceba o que sinto sem que eu precise falar?",
+
+      "17) Costumo corrigir, cobrar ou orientar o outro?",
+      "18) Sinto que preciso ensinar o parceiro a agir diferente?",
+      "19) Fico frustrado(a) quando o outro não corresponde às expectativas?",
+      "20) Assumi mais responsabilidade emocional do que gostaria?",
+
+      "21) Sinto que, se eu não segurar, a relação desmorona?",
+      "22) Abro mão de mim para manter a relação em pé?",
+      "23) Evito expor meus limites para não magoar o outro?",
+      "24) Já senti que faço muito e recebo pouco?",
+
+      "25) Quando a conversa fica difícil, eu me fecho ou me afasto?",
+      "26) Prefiro o silêncio a enfrentar conflitos emocionais?",
+      "27) Uso trabalho, celular ou rotina para evitar conversas profundas?",
+      "28) Falar sobre sentimentos me gera mais desgaste do que solução?"
+    ];
+
+    function getAnswers(){
+      const answers = [];
+      let yes = 0, no = 0, miss = 0;
+
+      for(let i=1;i<=TOTAL;i++){
+        const chosen = form.querySelector(`input[name="q${i}"]:checked`);
+        if(!chosen){
+          answers.push({ i, q: questions[i-1], a: "—" });
+          miss++;
+        } else {
+          const val = chosen.value;
+          answers.push({ i, q: questions[i-1], a: val });
+          if(val === "SIM") yes++;
+          if(val === "NÃO") no++;
+        }
+      }
+      return { answers, yes, no, miss };
+    }
+
+    function countByBlocks(answers){
+      const map = {};
+      for(const b of blocks){
+        let yes = 0, no = 0;
+        for(let i=b.from;i<=b.to;i++){
+          const a = answers[i-1]?.a;
+          if(a === "SIM") yes++;
+          if(a === "NÃO") no++;
+        }
+        map[b.key] = { title: b.title, yes, no, total: (b.to - b.from + 1) };
+      }
+      return map;
+    }
+
+    // ✅ Mensagem que chega no seu WhatsApp (texto pronto)
+    function buildMessage(){
+      const { answers, yes, no, miss } = getAnswers();
+      const byBlocks = countByBlocks(answers);
+      const now = new Date();
+      const stamp = now.toLocaleString("pt-BR");
+
+      const header =
+`FORMULÁRIO — ENTENDA DE ONDE VOCÊ ESTÁ SE RELACIONANDO
+
+Responsável: ${RESPONSAVEL}
+Data/Hora: ${stamp}
+
+Resumo geral:
+• SIM: ${yes}
+• NÃO: ${no}
+
+Resumo por bloco:
+• ${byBlocks.distancia.title}: SIM ${byBlocks.distancia.yes}/${byBlocks.distancia.total}
+• ${byBlocks.defesa.title}: SIM ${byBlocks.defesa.yes}/${byBlocks.defesa.total}
+• ${byBlocks.troca.title}: SIM ${byBlocks.troca.yes}/${byBlocks.troca.total}
+• ${byBlocks.crianca.title}: SIM ${byBlocks.crianca.yes}/${byBlocks.crianca.total}
+• ${byBlocks.pai_mae.title}: SIM ${byBlocks.pai_mae.yes}/${byBlocks.pai_mae.total}
+• ${byBlocks.salvador.title}: SIM ${byBlocks.salvador.yes}/${byBlocks.salvador.total}
+• ${byBlocks.fuga.title}: SIM ${byBlocks.fuga.yes}/${byBlocks.fuga.total}
+
+Respostas:`; // não revela interpretação
+
+      const lines = answers.map(item => `${item.i}. ${item.a} — ${item.q}`).join("\n");
+
+      const footer =
+`\n\nPedido:
+Quero receber a devolutiva do meu formulário e o ponto central que aparece no vínculo.`;
+
+      return { text: `${header}\n\n${lines}${footer}`, miss };
+    }
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(()=> toast.classList.remove("show"), 1100);
+    }
+
+    function updateUI(){
+      const { yes, no, miss } = getAnswers();
+
+      countYes.textContent = `SIM: ${yes}`;
+      countNo.textContent  = `NÃO: ${no}`;
+      countMiss.textContent = `Faltam: ${miss}`;
+
+      const allDone = miss === 0;
+
+      btnSend.style.opacity = allDone ? "1" : "0.55";
+      btnSend.style.pointerEvents = allDone ? "auto" : "none";
+      btnSend.disabled = !allDone;
+
+      btnCopy.style.opacity = allDone ? "1" : "0.55";
+      btnCopy.style.pointerEvents = allDone ? "auto" : "none";
+    }
+
+    form.addEventListener("change", updateUI);
+
+    btnCopy.addEventListener("click", async () => {
+      const { text, miss } = buildMessage();
+      if(miss !== 0){
+        alert("Responda todas as perguntas para copiar o formulário completo.");
+        return;
+      }
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast("Copiado!");
+      } catch(e){
+        alert("Não consegui copiar automaticamente. Use o botão do WhatsApp para enviar.");
+      }
+    });
+
+    // ✅ envio “automático”: ao clicar, abre WhatsApp com o texto pronto (sem precisar copiar)
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const { text, miss } = buildMessage();
+      if(miss !== 0){
+        alert("Responda todas as perguntas para liberar o envio.");
+        return;
+      }
+      const url = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(text)}`;
+      window.location.href = url;
+    });
+
+    // inicial
+    updateUI();
+  </script>
+</body>
+</html>
