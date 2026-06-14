@@ -1,890 +1,482 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light only" />
-  <meta name="theme-color" content="#ffffff" />
-
-  <title>Entenda de onde você está se relacionando</title>
-  <meta name="description" content="Responda SIM ou NÃO e envie automaticamente suas respostas no WhatsApp para receber a devolutiva." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descubra de onde você está se relacionando</title>
 
   <style>
     :root{
-      --bg1:#f6f3ff;
-      --bg2:#f7fbff;
-      --card:#ffffff;
-      --ink:#1f2430;
-      --muted:#5b6476;
-      --primary:#6c4bbf;
-      --accent:#2f7de1;
-      --line:rgba(31,36,48,0.10);
-      --shadow:0 18px 45px rgba(20, 12, 45, 0.10);
-      --shadow2:0 10px 28px rgba(20, 12, 45, 0.08);
-      --radius:18px;
+      --pink:#ff4fb8; --red:#f0003c; --dark:#15111d; --muted:#6f6878;
+      --soft:#fff1f8; --line:rgba(240,0,60,.09); --card:#ffffff;
+      --shadow:0 24px 60px rgba(21,17,29,.10); --radius:26px;
     }
 
     *{box-sizing:border-box}
 
-    /* ✅ esconder headers automáticos do GitHub Pages (temas/Jekyll) */
-    header, .site-header, .page-header, .project-name, .project-tagline,
-    #header, #site-header, #page-header,
-    body > h1:first-child, body > header:first-child,
-    .markdown-body > h1:first-child,
-    .container-lg > h1:first-child,
-    .container > h1:first-child{
-      display:none !important;
-      height:0 !important;
-      margin:0 !important;
-      padding:0 !important;
-      border:0 !important;
-    }
-
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--ink);
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--dark);
       background:
-        radial-gradient(1200px 600px at 10% 0%, var(--bg2) 0%, transparent 55%),
-        radial-gradient(900px 540px at 90% 10%, var(--bg1) 0%, transparent 55%),
-        linear-gradient(180deg, #ffffff 0%, #fbfaff 100%);
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px),
+        radial-gradient(circle at 15% 20%, rgba(255,79,184,.16), transparent 28%),
+        radial-gradient(circle at 85% 25%, rgba(240,0,60,.10), transparent 30%),
+        #fff;
+      background-size:60px 60px, 60px 60px, auto, auto, auto;
+    }
+
+    .topbar{
+      width:100%;
+      background:linear-gradient(90deg,var(--red),var(--pink));
+      color:#fff;
+      text-align:center;
+      font-weight:900;
+      letter-spacing:.8px;
+      padding:10px 16px;
+      font-size:14px;
+      text-transform:uppercase;
+    }
+
+    .wrap{max-width:1120px;margin:0 auto;padding:60px 22px 80px}
+    .hero{max-width:960px;margin-bottom:36px}
+
+    .badge{
+      display:inline-flex;
+      padding:12px 20px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--red);
+      font-weight:900;
+      font-size:14px;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+      margin-bottom:28px;
+    }
+
+    h1{
+      font-size:clamp(42px,7vw,86px);
+      line-height:.95;
+      margin:0 0 26px;
+      letter-spacing:-4px;
+      font-weight:950;
+    }
+
+    h1 span{color:var(--pink)}
+
+    .subtitle{
+      max-width:800px;
+      font-size:clamp(20px,2.3vw,28px);
+      line-height:1.45;
+      color:var(--dark);
+      margin:0 0 18px;
+      font-weight:800;
+    }
+
+    .heroText{
+      max-width:780px;
+      font-size:19px;
+      line-height:1.6;
+      color:var(--muted);
+      margin:0;
+    }
+
+    .intro,.section{
+      background:#fff;
+      border:1px solid rgba(255,79,184,.20);
+      border-radius:var(--radius);
+      padding:30px;
+      box-shadow:var(--shadow);
+      margin:28px 0;
+    }
+
+    .intro h2,.section h2{
+      margin:0 0 10px;
+      font-size:30px;
+      letter-spacing:-1px;
+    }
+
+    .intro p,.section .note{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
       line-height:1.55;
     }
 
-    .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 18px 18px 60px;
-    }
-
-    /* Top */
-    .top{
+    .places{
       display:grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 18px;
-      align-items: stretch;
-      margin-top: 10px;
-    }
-    @media(max-width: 900px){
-      .top{grid-template-columns: 1fr}
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:24px;
     }
 
-    .hero{
-      background: linear-gradient(135deg, rgba(108,75,191,0.10), rgba(47,125,225,0.10));
-      border: 1px solid rgba(108,75,191,0.18);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .title{
-      margin: 0 0 10px;
-      font-size: 34px;
-      line-height:1.12;
-      letter-spacing:-.4px;
-      color:#201a34;
-    }
-    @media(max-width: 520px){
-      .title{font-size: 28px;}
-    }
-
-    .subtitle{
-      margin:0;
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 74ch;
-    }
-
-    .mini{
-      margin-top: 18px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-    .pill{
+    .placeCard{
       background:#fff;
-      border:1px solid var(--line);
-      border-radius: 999px;
-      padding: 9px 12px;
-      font-size: 13.5px;
-      color: #3d4658;
-      box-shadow: var(--shadow2);
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
+      border:1px solid rgba(255,79,184,.20);
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
     }
 
-    .side{
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow2);
-      overflow: visible;
-    }
-    .side h3{
-      margin: 0 0 10px;
-      font-size: 16px;
-      color: #2d2250;
-    }
-    .side p{
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 14.5px;
+    .placeCard h3{margin:0 0 8px;font-size:22px}
+    .placeCard p{margin:0;color:var(--muted);font-size:16.5px;line-height:1.5}
+
+    .question{
+      border-top:1px solid rgba(21,17,29,.08);
+      padding:20px 0;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
     }
 
-    .rule{
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(47,125,225,0.08);
-      border: 1px solid rgba(47,125,225,0.18);
-      color: #244b7a;
-      font-size: 14px;
+    .question:first-of-type{border-top:0}
+
+    .qtext{
+      font-size:19px;
+      line-height:1.4;
+      font-weight:700;
     }
-    .ruleTitle{
-      display:inline-flex;
+
+    .qnum{color:var(--pink);font-weight:950;margin-right:8px}
+    .options{display:flex;gap:14px;flex-wrap:wrap}
+    .option{position:relative}
+    .option input{position:absolute;opacity:0;pointer-events:none}
+
+    .option label{
+      display:flex;
       align-items:center;
       justify-content:center;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.95);
-      border: 1px solid rgba(36,75,122,0.18);
-      font-weight: 900;
-      color:#2d3f66;
-      margin-bottom: 12px;
-    }
-    .steps{ display:grid; gap:10px; margin-top: 4px; }
-    .step{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px 12px;
-      box-shadow: 0 8px 18px rgba(20,12,45,0.06);
-      color:#2a3242;
-    }
-    .step b{ color:#2d2250; }
-
-    /* Section */
-    .section{
-      margin-top: 18px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow2);
-    }
-    .section h2{
-      margin: 0 0 6px;
-      font-size: 20px;
-      color:#2d2250;
-    }
-    .section .note{
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 14.5px;
-    }
-
-    /* Block label */
-    .blockTag{
-      display:inline-flex;
       gap:10px;
-      align-items:center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(108,75,191,0.10);
-      border: 1px solid rgba(108,75,191,0.18);
-      color: #2d2250;
-      font-weight: 900;
-      font-size: 13px;
-      margin-bottom: 12px;
-    }
-
-    /* Question */
-    .q{
-      border-top: 1px solid var(--line);
-      padding: 14px 0;
-      display:flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: stretch;
-    }
-    .q:first-of-type{border-top: none; padding-top: 0;}
-    .q:last-of-type{padding-bottom: 0;}
-
-    .qtext .n{
-      display:inline-block;
-      font-weight: 900;
-      color: rgba(108,75,191,0.95);
-      margin-right: 8px;
-    }
-    .qtext .t{
-      font-size: 15.5px;
-      color: #1f2430;
-      hyphens:auto;
-    }
-
-    /* Options */
-    .opts{
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .opt{ position:relative; }
-    .opt input{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
-    .opt label{
-      width: 100%;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: #2b3342;
-      font-size: 14px;
-      font-weight: 900;
+      min-width:130px;
+      padding:14px 22px;
+      border-radius:999px;
+      background:#fff;
+      border:2px solid rgba(21,17,29,.08);
+      box-shadow:0 12px 26px rgba(21,17,29,.07);
+      font-size:17px;
+      font-weight:900;
       cursor:pointer;
-      transition: .18s ease;
-      box-shadow: 0 6px 18px rgba(20,12,45,0.06);
-      user-select:none;
-    }
-    .opt label .dot{
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
-      background: rgba(31,36,48,0.20);
-    }
-    .opt input:checked + label{
-      border-color: rgba(108,75,191,0.55);
-      background: rgba(108,75,191,0.10);
-      color:#2d2250;
-    }
-    .opt input:checked + label .dot{
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+      transition:.18s ease;
     }
 
-    /* Final */
+    .dot{width:10px;height:10px;border-radius:50%;background:#d8d8df}
+
+    .option input:checked + label{
+      border-color:var(--pink);
+      background:var(--soft);
+      color:var(--red);
+      transform:translateY(-1px);
+    }
+
+    .option input:checked + label .dot{
+      background:linear-gradient(90deg,var(--red),var(--pink));
+    }
+
     .final{
-      margin-top: 18px;
-      background: linear-gradient(135deg, rgba(108,75,191,0.12), rgba(47,125,225,0.10));
-      border: 1px solid rgba(108,75,191,0.18);
-      border-radius: calc(var(--radius) + 4px);
-      padding: 26px;
-      box-shadow: var(--shadow);
+      background:linear-gradient(135deg,var(--red),var(--pink));
+      color:#fff;
+      border-radius:32px;
+      padding:34px;
+      box-shadow:0 30px 70px rgba(240,0,60,.25);
+      margin-top:34px;
     }
-    .final h2{
-      margin: 0 0 10px;
-      font-size: 22px;
-      color:#2d2250;
-    }
-    .final p{
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 15px;
-      max-width: 75ch;
-    }
+
+    .final h2{font-size:34px;margin:0 0 10px;letter-spacing:-1px}
+    .final p{font-size:18px;line-height:1.5;margin:0 0 20px;opacity:.94}
 
     .summary{
       background:#fff;
-      border:1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      margin-top: 14px;
-      box-shadow: var(--shadow2);
+      color:var(--dark);
+      border-radius:24px;
+      padding:22px;
+      margin-top:22px;
     }
-    .summary .row{
-      display:flex;
-      gap: 12px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content: space-between;
-      margin-top: 10px;
-    }
-    .count{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      color:#2d2250;
-      font-weight: 900;
-    }
-    .chip{
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(47,125,225,0.06);
-      color:#244b7a;
-      font-size: 13.5px;
-      font-weight: 900;
-    }
+
+    .actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      padding: 14px 18px;
-      border-radius: 999px;
       text-decoration:none;
-      border: none;
+      border:0;
       cursor:pointer;
-      font-weight: 950;
-      font-size: 15px;
-      transition: transform .12s ease, opacity .12s ease;
-      user-select:none;
+      border-radius:999px;
+      padding:16px 24px;
+      font-size:16px;
+      font-weight:950;
+      transition:.18s ease;
     }
-    .btn:active{transform: scale(0.99);}
+
     .btn-primary{
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+      background:linear-gradient(90deg,var(--red),var(--pink));
       color:#fff;
-      box-shadow: 0 14px 30px rgba(108,75,191,0.22);
+      box-shadow:0 18px 38px rgba(240,0,60,.25);
     }
-    .btn-ghost{
+
+    .btn-secondary{
       background:#fff;
-      color:#2d2250;
-      border:1px solid var(--line);
+      color:var(--red);
+      border:2px solid rgba(240,0,60,.20);
     }
 
-    .small{ margin-top: 10px; font-size: 12.8px; color: #6b7486; }
-    .footer{ margin-top: 22px; text-align:center; color:#7b8496; font-size: 13px; }
-    .req{ color:#a63d3d; font-weight: 900; }
+    .small{color:var(--muted);font-size:13px;margin-top:12px}
+    .footer{text-align:center;color:var(--muted);font-size:14px;padding:28px 0 0}
 
-    /* Desktop: deixa opções mais estreitas */
-    @media(min-width: 900px){
-      .opts{ max-width: 340px; }
+    @media(max-width:720px){
+      .wrap{padding:42px 16px 60px}
+      h1{letter-spacing:-2px}
+      .section,.intro,.final,.placeCard{padding:24px 18px}
+      .places{grid-template-columns:1fr}
+      .options{display:grid;grid-template-columns:1fr 1fr}
+      .option label{min-width:0;width:100%}
+      .actions{flex-direction:column;align-items:stretch}
+      .btn{width:100%}
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
 
-    <div class="top">
-      <div class="hero">
-        <h1 class="title">Entenda de onde você está se relacionando</h1>
-        <p class="subtitle">
-          O amor não acabou. O que muitas vezes muda é o lugar emocional de onde vocês se relacionam.
-          Responda <b>SIM</b> ou <b>NÃO</b> nas perguntas e, no final, clique para enviar automaticamente suas respostas no WhatsApp e receber a devolutiva.
-        </p>
+  <div class="topbar">RELACIONAMENTOS CONSCIENTES</div>
 
-        <div class="mini">
-          <div class="pill">✅ Respostas rápidas: SIM / NÃO</div>
-          <div class="pill">📲 Envio automático no WhatsApp</div>
-          <div class="pill">🤝 Sem culpa, com consciência</div>
+  <main class="wrap">
+
+    <section class="hero">
+      <div class="badge">Diagnóstico Relacional</div>
+
+      <h1>Descubra de onde você está <span>se relacionando</span></h1>
+
+      <p class="subtitle">
+        Quando não ocupamos nosso lugar de adulto na relação, o amor vira peso, cobrança ou carência.
+      </p>
+
+      <p class="heroText">
+        Este diagnóstico foi criado para ajudar você a perceber quais padrões emocionais estão influenciando o seu relacionamento hoje.
+        Não é sobre apontar culpados. É sobre trazer consciência para aquilo que acontece sem que o casal perceba.
+      </p>
+    </section>
+
+    <section class="intro">
+      <h2>Os 7 lugares emocionais do relacionamento</h2>
+      <p>Antes de responder, entenda brevemente os lugares que aparecem quando o vínculo se desorganiza.</p>
+
+      <div class="places">
+        <div class="placeCard"><h3>🤍 Distância silenciosa</h3><p>Quando o casal continua junto, mas deixa de se encontrar emocionalmente.</p></div>
+        <div class="placeCard"><h3>🛡️ Defesa e reatividade</h3><p>Quando a conversa vira proteção, ataque ou justificativa, em vez de conexão.</p></div>
+        <div class="placeCard"><h3>⚖️ Desequilíbrio de troca</h3><p>Quando um sente que dá mais, carrega mais ou sustenta mais a relação.</p></div>
+        <div class="placeCard"><h3>👨‍👩‍👧 Pai ou mãe do parceiro</h3><p>Quando a relação deixa de ser encontro entre adultos e passa a ser cobrança, correção ou controle.</p></div>
+        <div class="placeCard"><h3>🆘 Salvador(a)</h3><p>Quando alguém tenta manter tudo funcionando sozinho e assume a responsabilidade pela relação inteira.</p></div>
+        <div class="placeCard"><h3>🚪 Fuga</h3><p>Quando o silêncio, o afastamento ou a evitação parecem mais seguros do que conversar.</p></div>
+        <div class="placeCard"><h3>👶 Lugar de criança</h3><p>Quando medos antigos, carências emocionais ou dores do passado começam a conduzir o relacionamento.</p></div>
+      </div>
+    </section>
+
+    <section class="intro">
+      <h2>Agora que você já conhece os 7 lugares emocionais, vamos para às perguntas</h2>
+      <p>
+        Esse formulário mostra onde o vínculo esta pedindo mais consciência. 
+      </p>
+    </section>
+
+    <form id="quiz"></form>
+
+    <section class="final">
+      <h2>Diagnóstico concluído</h2>
+      <p>
+        Ao clicar no botão abaixo, suas respostas serão enviadas automaticamente para o WhatsApp.
+        Com base nelas, você receberá uma devolutiva personalizada, com o padrão que apareceu com mais força, de qual lugar você está se relacionando hoje, e qual é o primeiro passo para iniciar uma mudança consciente no meu relacionamento.
+      </p>
+
+      <div class="summary">
+        <strong>Você respondeu todas as perguntas.</strong>
+        <p class="small">Agora clique no botão abaixo para enviar suas respostas.</p>
+
+        <div class="actions">
+                    <a class="btn btn-primary" id="btnWhats" href="#" aria-disabled="true">
+            Enviar respostas e receber minha devolutiva
+          </a>
+        </div>
+
+        <div class="small" id="statusText">
+          Para liberar o envio, responda todas as perguntas.
         </div>
       </div>
+    </section>
 
-      <div class="side">
-        <h3>🧭 Como preencher</h3>
-        <p>
-          Leia com calma. Marque <b>SIM</b> ou <b>NÃO</b> com honestidade.<br />
-          Isso não é julgamento. É clareza.
-        </p>
-
-        <div class="rule">
-          <div class="ruleTitle">Como você recebe a devolutiva</div>
-          <div class="steps">
-            <div class="step"><b>Passo 1:</b> responda todas as perguntas.</div>
-            <div class="step"><b>Passo 2:</b> clique em <b>“Enviar e receber devolutiva no WhatsApp”</b>.</div>
-            <div class="step"><b>Passo 3:</b> eu recebo suas respostas e te devolvo o ponto central do vínculo.</div>
-          </div>
-        </div>
-
-        <p class="small">
-          *Se preferir, apenas uma pessoa pode responder pelo casal.
-        </p>
-      </div>
+    <div class="footer">
+      © <span id="year"></span> • Relacionamentos Conscientes
     </div>
 
-    <form id="quiz">
-
-      <!-- =========================
-           SINTOMA 1
-      ========================== -->
-      <div class="section" data-block="SINTOMA 1 — Distância silenciosa">
-        <div class="blockTag">1) Distância silenciosa</div>
-        <p class="note">“Vocês conversam… mas é logística: contas, filhos, rotina. E o resto fica pra depois.”</p>
-
-        <div class="q">
-          <div class="qtext"><span class="n">1.</span><span class="t">Sentimos que conversamos mais sobre rotina do que sobre o que sentimos?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q1" id="q1s" value="SIM" required><label for="q1s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q1" id="q1n" value="NÃO"><label for="q1n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">2.</span><span class="t">Temos pouco espaço para conversar sem interrupções (celular, trabalho, filhos)?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q2" id="q2s" value="SIM" required><label for="q2s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q2" id="q2n" value="NÃO"><label for="q2n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">3.</span><span class="t">Quando estamos juntos, muitas vezes parece “cada um no seu mundo”?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q3" id="q3s" value="SIM" required><label for="q3s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q3" id="q3n" value="NÃO"><label for="q3n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">4.</span><span class="t">Faz tempo que não temos conversas profundas sobre nós, a relação e o que precisamos?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q4" id="q4s" value="SIM" required><label for="q4s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q4" id="q4n" value="NÃO"><label for="q4n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- =========================
-           SINTOMA 2
-      ========================== -->
-      <div class="section" data-block="SINTOMA 2 — Defesa e reatividade">
-        <div class="blockTag">2) Defesa e reatividade</div>
-        <p class="note">“Um fala, o outro já se protege. Não é diálogo, é sobrevivência.”</p>
-
-        <div class="q">
-          <div class="qtext"><span class="n">5.</span><span class="t">Quando um fala, o outro costuma se defender antes de escutar?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q5" id="q5s" value="SIM" required><label for="q5s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q5" id="q5n" value="NÃO"><label for="q5n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">6.</span><span class="t">Nossas conversas importantes viram discussão com facilidade?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q6" id="q6s" value="SIM" required><label for="q6s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q6" id="q6n" value="NÃO"><label for="q6n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">7.</span><span class="t">Depois de um conflito, fica um clima pesado ou distanciamento por muito tempo?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q7" id="q7s" value="SIM" required><label for="q7s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q7" id="q7n" value="NÃO"><label for="q7n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">8.</span><span class="t">Temos dificuldade de reparar e nos reaproximar depois de uma conversa difícil?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q8" id="q8s" value="SIM" required><label for="q8s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q8" id="q8n" value="NÃO"><label for="q8n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- =========================
-           SINTOMA 3
-      ========================== -->
-      <div class="section" data-block="SINTOMA 3 — Desequilíbrio de troca">
-        <div class="blockTag">3) Desequilíbrio de troca</div>
-        <p class="note">“Um carrega mais. Um se doa mais. Um vira responsável pelo vínculo.”</p>
-
-        <div class="q">
-          <div class="qtext"><span class="n">9.</span><span class="t">Um de nós sente que está carregando o relacionamento mais do que o outro?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q9" id="q9s" value="SIM" required><label for="q9s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q9" id="q9n" value="NÃO"><label for="q9n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">10.</span><span class="t">Existe sensação de injustiça: “eu faço mais e recebo menos”?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q10" id="q10s" value="SIM" required><label for="q10s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q10" id="q10n" value="NÃO"><label for="q10n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">11.</span><span class="t">Um de nós se sente sozinho(a) mesmo estando numa relação?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q11" id="q11s" value="SIM" required><label for="q11s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q11" id="q11n" value="NÃO"><label for="q11n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">12.</span><span class="t">O relacionamento tem sido mais esforço do que leveza?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q12" id="q12s" value="SIM" required><label for="q12s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q12" id="q12n" value="NÃO"><label for="q12n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- =========================
-           LUGAR: PAI/MÃE
-      ========================== -->
-      <div class="section" data-block="LUGAR — Pai/Mãe do parceiro(a)">
-        <div class="blockTag">Lugar emocional: Pai/Mãe do parceiro(a)</div>
-        <p class="note">“Eu corrijo, cobro, tento ensinar, controlo… e depois reclamo que perdi o desejo.”</p>
-
-        <div class="q">
-          <div class="qtext"><span class="n">13.</span><span class="t">Eu me pego corrigindo como se eu soubesse “o certo” e o outro tivesse que aprender?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q13" id="q13s" value="SIM" required><label for="q13s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q13" id="q13n" value="NÃO"><label for="q13n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">14.</span><span class="t">Eu cobro maturidade/atitude do outro num tom de “lição”?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q14" id="q14s" value="SIM" required><label for="q14s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q14" id="q14n" value="NÃO"><label for="q14n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">15.</span><span class="t">Eu controlo decisões, rotinas ou detalhes porque “se eu não fizer, não anda”?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q15" id="q15s" value="SIM" required><label for="q15s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q15" id="q15n" value="NÃO"><label for="q15n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">16.</span><span class="t">Eu sinto que virei mais “responsável” do que parceiro(a) dentro da relação?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q16" id="q16s" value="SIM" required><label for="q16s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q16" id="q16n" value="NÃO"><label for="q16n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- =========================
-           LUGAR: SALVADOR(A)
-      ========================== -->
-      <div class="section" data-block="LUGAR — Salvador(a)">
-        <div class="blockTag">Lugar emocional: Salvador(a)</div>
-        <p class="note">“Eu sustento a relação sozinho(a) e ainda me sinto injustiçado(a).”</p>
-
-        <div class="q">
-          <div class="qtext"><span class="n">17.</span><span class="t">Eu sinto que preciso “segurar” a relação para ela não desmoronar?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q17" id="q17s" value="SIM" required><label for="q17s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q17" id="q17n" value="NÃO"><label for="q17n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">18.</span><span class="t">Eu me anulo ou abro mão de coisas importantes para “dar certo”?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q18" id="q18s" value="SIM" required><label for="q18s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q18" id="q18n" value="NÃO"><label for="q18n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">19.</span><span class="t">Eu ajudo demais e, no fundo, fico esperando reconhecimento?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q19" id="q19s" value="SIM" required><label for="q19s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q19" id="q19n" value="NÃO"><label for="q19n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">20.</span><span class="t">Eu sinto ressentimento porque parece que “só eu me esforço”?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q20" id="q20s" value="SIM" required><label for="q20s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q20" id="q20n" value="NÃO"><label for="q20n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- =========================
-           LUGAR: FUGA
-      ========================== -->
-      <div class="section" data-block="LUGAR — Fuga">
-        <div class="blockTag">Lugar emocional: Fuga</div>
-        <p class="note">“Eu sumo. Eu me fecho. Eu evito conversa difícil.”</p>
-
-        <div class="q">
-          <div class="qtext"><span class="n">21.</span><span class="t">Quando um assunto fica sério, eu prefiro mudar de assunto ou encerrar a conversa?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q21" id="q21s" value="SIM" required><label for="q21s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q21" id="q21n" value="NÃO"><label for="q21n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">22.</span><span class="t">Eu me fecho, fico frio(a) ou distante quando me sinto pressionado(a)?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q22" id="q22s" value="SIM" required><label for="q22s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q22" id="q22n" value="NÃO"><label for="q22n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">23.</span><span class="t">Eu evito conflito a qualquer custo, mesmo que isso acumule coisas não ditas?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q23" id="q23s" value="SIM" required><label for="q23s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q23" id="q23n" value="NÃO"><label for="q23n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">24.</span><span class="t">Às vezes eu “sumi” emocionalmente da relação sem perceber?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q24" id="q24s" value="SIM" required><label for="q24s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q24" id="q24n" value="NÃO"><label for="q24n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- =========================
-           LUGAR: CRIANÇA
-      ========================== -->
-      <div class="section" data-block="LUGAR — Criança">
-        <div class="blockTag">Lugar emocional: Criança</div>
-        <p class="note">Quando o emocional assume, a relação vira carência, medo, birra, cobrança ou dependência.</p>
-
-        <div class="q">
-          <div class="qtext"><span class="n">25.</span><span class="t">Eu sinto medo de perder o outro e isso me deixa ansioso(a) ou controlador(a)?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q25" id="q25s" value="SIM" required><label for="q25s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q25" id="q25n" value="NÃO"><label for="q25n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">26.</span><span class="t">Eu cobro amor/atenção e depois me arrependo, mas repito?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q26" id="q26s" value="SIM" required><label for="q26s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q26" id="q26n" value="NÃO"><label for="q26n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">27.</span><span class="t">Quando me sinto ferido(a), eu reajo no impulso (silêncio, indireta, explosão, sarcasmo)?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q27" id="q27s" value="SIM" required><label for="q27s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q27" id="q27n" value="NÃO"><label for="q27n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-
-        <div class="q">
-          <div class="qtext"><span class="n">28.</span><span class="t">Eu sinto que dependo do outro para ficar bem (emocionalmente)?</span></div>
-          <div class="opts">
-            <span class="opt"><input type="radio" name="q28" id="q28s" value="SIM" required><label for="q28s"><span class="dot"></span>SIM</label></span>
-            <span class="opt"><input type="radio" name="q28" id="q28n" value="NÃO"><label for="q28n"><span class="dot"></span>NÃO</label></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- FINAL -->
-      <div class="final">
-        <h2>✅ Finalizar e enviar</h2>
-        <p>
-          Quando terminar, clique no botão abaixo.
-          Suas respostas serão organizadas automaticamente e vão abrir no WhatsApp para você enviar e receber a devolutiva.
-        </p>
-
-        <div class="summary">
-          <strong>Progresso</strong>
-          <div class="row">
-            <div class="count">
-              <span class="chip" id="countYes">SIM: 0</span>
-              <span class="chip" id="countNo">NÃO: 0</span>
-              <span class="chip" id="countMiss">Faltam: 28</span>
-            </div>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button type="button" class="btn btn-ghost" id="btnCopy">Copiar respostas</button>
-              <button type="submit" class="btn btn-primary" id="btnSend">Enviar e receber devolutiva no WhatsApp</button>
-            </div>
-          </div>
-
-          <div class="small">
-            <span class="req">*</span> Para enviar, responda todas as perguntas.
-          </div>
-        </div>
-
-        <div class="footer">
-          © <span id="year"></span> • Formulário do Vínculo • Experiência simples, direta e acolhedora.
-        </div>
-      </div>
-
-    </form>
-  </div>
+  </main>
 
   <script>
-    // ===== CONFIG =====
-    const WHATS_NUMBER = "5549998110445"; // 55 + DDD + número
-    const RESPONSAVEL = "Evandro Favoretto";
-    const PAGE_NAME = "Formulário do Vínculo — Entenda de onde você está se relacionando";
+    const WHATS_NUMBER = "5549998110445";
 
-    // Lista de perguntas (na mesma ordem q1..q28)
-    const questions = [
-      "Sentimos que conversamos mais sobre rotina do que sobre o que sentimos?",
-      "Temos pouco espaço para conversar sem interrupções (celular, trabalho, filhos)?",
-      "Quando estamos juntos, muitas vezes parece “cada um no seu mundo”?",
-      "Faz tempo que não temos conversas profundas sobre nós, a relação e o que precisamos?",
-
-      "Quando um fala, o outro costuma se defender antes de escutar?",
-      "Nossas conversas importantes viram discussão com facilidade?",
-      "Depois de um conflito, fica um clima pesado ou distanciamento por muito tempo?",
-      "Temos dificuldade de reparar e nos reaproximar depois de uma conversa difícil?",
-
-      "Um de nós sente que está carregando o relacionamento mais do que o outro?",
-      "Existe sensação de injustiça: “eu faço mais e recebo menos”?",
-      "Um de nós se sente sozinho(a) mesmo estando numa relação?",
-      "O relacionamento tem sido mais esforço do que leveza?",
-
-      "Eu me pego corrigindo como se eu soubesse “o certo” e o outro tivesse que aprender?",
-      "Eu cobro maturidade/atitude do outro num tom de “lição”?",
-      "Eu controlo decisões, rotinas ou detalhes porque “se eu não fizer, não anda”?",
-      "Eu sinto que virei mais “responsável” do que parceiro(a) dentro da relação?",
-
-      "Eu sinto que preciso “segurar” a relação para ela não desmoronar?",
-      "Eu me anulo ou abro mão de coisas importantes para “dar certo”?",
-      "Eu ajudo demais e, no fundo, fico esperando reconhecimento?",
-      "Eu sinto ressentimento porque parece que “só eu me esforço”?",
-
-      "Quando um assunto fica sério, eu prefiro mudar de assunto ou encerrar a conversa?",
-      "Eu me fecho, fico frio(a) ou distante quando me sinto pressionado(a)?",
-      "Eu evito conflito a qualquer custo, mesmo que isso acumule coisas não ditas?",
-      "Às vezes eu “sumi” emocionalmente da relação sem perceber?",
-
-      "Eu sinto medo de perder o outro e isso me deixa ansioso(a) ou controlador(a)?",
-      "Eu cobro amor/atenção e depois me arrependo, mas repito?",
-      "Quando me sinto ferido(a), eu reajo no impulso (silêncio, indireta, explosão, sarcasmo)?",
-      "Eu sinto que dependo do outro para ficar bem (emocionalmente)?"
+    const blocks = [
+      ["Distância silenciosa", "Quando o casal funciona, mas deixa de se encontrar.", [
+        "Sentimos que conversamos mais sobre rotina do que sobre o que sentimos?",
+        "Mesmo estando juntos, existe sensação de afastamento emocional?",
+        "O silêncio entre nós pesa mais do que aproxima?",
+        "Nos encontramos pouco como casal, mesmo convivendo diariamente?"
+      ]],
+      ["Defesa e reatividade", "Quando a conversa vira proteção, ataque ou justificativa.", [
+        "Quando um fala, o outro já se defende?",
+        "As conversas costumam terminar sem entendimento real?",
+        "Evito determinados assuntos para não gerar conflito?",
+        "Sinto que preciso me proteger emocionalmente nas conversas?"
+      ]],
+      ["Desequilíbrio de troca", "Quando um sente que dá mais, carrega mais ou sustenta mais a relação.", [
+        "Sinto que me esforço mais do que o outro para manter a relação?",
+        "Costumo ceder para evitar problemas?",
+        "Já me senti injustiçado(a) ou sobrecarregado(a) na relação?",
+        "Sinto que carrego mais responsabilidades emocionais do que o outro?"
+      ]],
+      ["Pai ou mãe do parceiro", "Quando a relação deixa de ser encontro e passa a ser cobrança, correção ou controle.", [
+        "Costumo corrigir ou orientar meu parceiro com frequência?",
+        "Sinto que preciso ensinar o outro a agir corretamente?",
+        "Me irrito quando o outro não faz as coisas da forma que considero certa?",
+        "Percebo que assumo responsabilidades que deveriam ser do outro?"
+      ]],
+      ["Salvador(a)", "Quando alguém tenta manter tudo funcionando sozinho.", [
+        "Sinto que, se eu parar de tentar, o relacionamento desmorona?",
+        "Costumo resolver problemas que pertencem ao outro?",
+        "Tenho dificuldade em deixar que o outro assuma as próprias responsabilidades?",
+        "Frequentemente me sinto cansado(a) de carregar tudo sozinho(a)?"
+      ]],
+      ["Fuga", "Quando o silêncio, o afastamento ou a evitação parecem mais seguros do que conversar.", [
+        "Evito conversas difíceis?",
+        "Quando algo me incomoda, prefiro me fechar?",
+        "Tenho dificuldade de expressar o que realmente sinto?",
+        "Costumo me afastar emocionalmente diante dos conflitos?"
+      ]],
+      ["Lugar de criança", "Quando medos antigos, carências emocionais ou dores do passado começam a conduzir o relacionamento.", [
+        "Tenho medo constante de rejeição?",
+        "Sinto necessidade frequente de aprovação?",
+        "Reajo de forma intensa quando me sinto ignorado(a)?",
+        "Tenho medo de ser abandonado(a) ou deixado(a) para trás?"
+      ]]
     ];
 
-    const TOTAL = questions.length;
-
     const form = document.getElementById("quiz");
+    let allQuestions = [];
+    let qIndex = 1;
+
+    blocks.forEach(block => {
+      const [title, note, qs] = block;
+      const section = document.createElement("section");
+      section.className = "section";
+      section.innerHTML = `<h2>${title}</h2><p class="note">${note}</p>`;
+
+      qs.forEach(q => {
+        allQuestions.push({ block:title, question:q });
+        section.innerHTML += `
+          <div class="question">
+            <div class="qtext"><span class="qnum">${qIndex}.</span>${q}</div>
+            <div class="options">
+              <span class="option">
+                <input type="radio" name="q${qIndex}" id="q${qIndex}s" value="SIM" required>
+                <label for="q${qIndex}s"><span class="dot"></span>SIM</label>
+              </span>
+              <span class="option">
+                <input type="radio" name="q${qIndex}" id="q${qIndex}n" value="NÃO">
+                <label for="q${qIndex}n"><span class="dot"></span>NÃO</label>
+              </span>
+            </div>
+          </div>
+        `;
+        qIndex++;
+      });
+
+      form.appendChild(section);
+    });
+
+    const btnWhats = document.getElementById("btnWhats");
     const btnCopy = document.getElementById("btnCopy");
-
-    const countYes = document.getElementById("countYes");
-    const countNo = document.getElementById("countNo");
-    const countMiss = document.getElementById("countMiss");
-
+    const statusText = document.getElementById("statusText");
     document.getElementById("year").textContent = new Date().getFullYear();
 
     function getAnswers(){
-      const answers = [];
       let yes = 0, no = 0, miss = 0;
+      const answers = [];
 
-      for(let i=1;i<=TOTAL;i++){
+      for(let i=1; i<=28; i++){
         const chosen = form.querySelector(`input[name="q${i}"]:checked`);
+        const item = allQuestions[i-1];
+
         if(!chosen){
-          answers.push({ i, q: questions[i-1], a: "—" });
           miss++;
+          answers.push(`${i}. — [${item.block}] ${item.question}`);
         } else {
-          const val = chosen.value;
-          answers.push({ i, q: questions[i-1], a: val });
-          if(val === "SIM") yes++;
-          if(val === "NÃO") no++;
+          if(chosen.value === "SIM") yes++;
+          if(chosen.value === "NÃO") no++;
+          answers.push(`${i}. ${chosen.value} — [${item.block}] ${item.question}`);
         }
       }
-      return { answers, yes, no, miss };
+
+      return { yes, no, miss, answers };
     }
 
     function buildMessage(){
-      const { answers, yes, no } = getAnswers();
+      const { yes, no, answers } = getAnswers();
 
-      // Resumo por bloco (automático pelo container data-block)
-      const sections = Array.from(document.querySelectorAll(".section[data-block]"));
-      const perBlock = [];
+      return `DIAGNÓSTICO RELACIONAMENTOS CONSCIENTES
 
-      let index = 0;
-      for (const s of sections){
-        const blockName = s.getAttribute("data-block");
-        const qCount = s.querySelectorAll('input[type="radio"][name^="q"]').length / 2; // 2 radios por pergunta
-        let bYes = 0, bNo = 0;
+Olá Evandro.
 
-        for(let k=0;k<qCount;k++){
-          const item = answers[index + k];
-          if(item?.a === "SIM") bYes++;
-          if(item?.a === "NÃO") bNo++;
-        }
-        index += qCount;
-        perBlock.push({ blockName, bYes, bNo, qCount });
-      }
+Acabei de concluir o formulário:
+Descubra de onde você está se relacionando.
 
-      const date = new Date();
-      const stamp = date.toLocaleString("pt-BR");
-
-      const header =
-`${PAGE_NAME}
-
-Responsável: ${RESPONSAVEL}
-Data/Hora: ${stamp}
-
-Resumo Geral:
+Resumo interno:
 • SIM: ${yes}
 • NÃO: ${no}
 
-Resumo por Blocos:`;
+Minhas respostas:
 
-      const blocksLines = perBlock.map(b => `- ${b.blockName}: SIM ${b.bYes} / NÃO ${b.bNo}`).join("\n");
+${answers.join("\n")}
 
-      const linesTitle = `\n\nRespostas:`;
-      const lines = answers.map(item => `${item.i}. ${item.a} — ${item.q}`).join("\n");
+Quero receber minha devolutiva explicando:
 
-      const footer =
-`\n\nPedido:
-Quero receber a devolutiva do meu relacionamento e o lugar emocional predominante.`;
-
-      const text = `${header}\n${blocksLines}${linesTitle}\n\n${lines}${footer}`;
-      return { text };
+• Qual padrão apareceu com mais força
+• De onde estou me relacionando hoje
+• Qual é o primeiro passo para iniciar uma mudança consciente no meu relacionamento`;
     }
 
     function updateUI(){
-      const { yes, no, miss } = getAnswers();
-      countYes.textContent = `SIM: ${yes}`;
-      countNo.textContent  = `NÃO: ${no}`;
-      countMiss.textContent = `Faltam: ${miss}`;
+      const { miss } = getAnswers();
+      const allDone = miss === 0;
+
+      btnWhats.style.opacity = allDone ? "1" : ".55";
+      btnWhats.style.pointerEvents = allDone ? "auto" : "none";
+      btnWhats.setAttribute("aria-disabled", allDone ? "false" : "true");
+
+      statusText.textContent = allDone
+        ? "Tudo pronto. Clique no botão para enviar suas respostas."
+        : `Para liberar o envio, responda todas as perguntas. Faltam: ${miss}`;
+
+      btnWhats.href = allDone
+        ? `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(buildMessage())}`
+        : "#";
     }
 
     form.addEventListener("change", updateUI);
 
     btnCopy.addEventListener("click", async () => {
       const { miss } = getAnswers();
+
       if(miss !== 0){
-        alert("Responda todas as perguntas para copiar o formulário completo.");
+        alert("Responda todas as perguntas para copiar as respostas.");
         return;
       }
+
       try{
-        const { text } = buildMessage();
-        await navigator.clipboard.writeText(text);
+        await navigator.clipboard.writeText(buildMessage());
         btnCopy.textContent = "Copiado!";
-        setTimeout(()=> btnCopy.textContent = "Copiar respostas", 1200);
+        setTimeout(() => btnCopy.textContent = "Copiar respostas", 1300);
       } catch(e){
-        alert("Não consegui copiar automaticamente. Use o botão de envio no WhatsApp.");
+        alert("Não consegui copiar automaticamente. Use o botão do WhatsApp.");
       }
-    });
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const { miss } = getAnswers();
-      if(miss !== 0){
-        alert("Responda todas as perguntas antes de enviar.");
-        return;
-      }
-      const { text } = buildMessage();
-      const url = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(text)}`;
-
-      // ✅ “automático”: ao clicar no enviar, já abre direto o WhatsApp com a mensagem pronta
-      window.location.href = url;
     });
 
     updateUI();
