@@ -243,8 +243,6 @@
 
   <main class="wrap">
 
-    <section class="hero">
-      <div class="badge">Diagnóstico Relacional</div>
 
       <h1>Descubra de onde você está <span>se relacionando</span></h1>
 
@@ -254,13 +252,13 @@
 
       <p class="heroText">
         Este diagnóstico foi criado para ajudar você a perceber quais padrões emocionais estão influenciando o seu relacionamento hoje.
-        Não é sobre apontar culpados. É sobre trazer consciência para aquilo que acontece sem que o casal perceba.
+        Não é sobre apontar culpados. É sobre trazer consciência aquilo que acontece sem que o casal perceba.
       </p>
     </section>
 
     <section class="intro">
       <h2>Os 7 lugares emocionais do relacionamento</h2>
-      <p>Antes de responder, entenda brevemente os lugares que aparecem quando o vínculo se desorganiza.</p>
+      <p>Antes de responder, entenda brevemente os lugares que podem aparecer quando o vínculo se desorganiza.</p>
 
       <div class="places">
         <div class="placeCard"><h3>🤍 Distância silenciosa</h3><p>Quando o casal continua junto, mas deixa de se encontrar emocionalmente.</p></div>
@@ -274,9 +272,10 @@
     </section>
 
     <section class="intro">
-      <h2>Agora que você já conhece os 7 lugares emocionais, vamos para às perguntas</h2>
+      <h2>Agora responda às perguntas</h2>
       <p>
-        Esse formulário mostra onde o vínculo esta pedindo mais consciência. 
+        Respire antes de responder. Esse formulário não mede se o relacionamento está certo ou errado.
+        Ele apenas mostra onde o vínculo esta pedindo mais consciência.
       </p>
     </section>
 
@@ -285,7 +284,7 @@
     <section class="final">
       <h2>Diagnóstico concluído</h2>
       <p>
-        Ao clicar no botão abaixo, suas respostas serão enviadas automaticamente para o WhatsApp.
+        Ao clicar no botão abaixo, suas respostas serão enviadas automaticamente para o WhatsApp. 
         Com base nelas, você receberá uma devolutiva personalizada, com o padrão que apareceu com mais força, de qual lugar você está se relacionando hoje, e qual é o primeiro passo para iniciar uma mudança consciente no meu relacionamento.
       </p>
 
@@ -294,7 +293,8 @@
         <p class="small">Agora clique no botão abaixo para enviar suas respostas.</p>
 
         <div class="actions">
-                    <a class="btn btn-primary" id="btnWhats" href="#" aria-disabled="true">
+          <button type="button" class="btn btn-secondary" id="btnCopy">Copiar respostas</button>
+          <a class="btn btn-primary" id="btnWhats" href="#" aria-disabled="true">
             Enviar respostas e receber minha devolutiva
           </a>
         </div>
@@ -315,43 +315,43 @@
     const WHATS_NUMBER = "5549998110445";
 
     const blocks = [
-      ["Distância silenciosa" [
+      ["Distância silenciosa", "Quando o casal funciona, mas deixa de se encontrar.", [
         "Sentimos que conversamos mais sobre rotina do que sobre o que sentimos?",
         "Mesmo estando juntos, existe sensação de afastamento emocional?",
         "O silêncio entre nós pesa mais do que aproxima?",
         "Nos encontramos pouco como casal, mesmo convivendo diariamente?"
       ]],
-      ["Defesa e reatividade" [
+      ["Defesa e reatividade", "Quando a conversa vira proteção, ataque ou justificativa.", [
         "Quando um fala, o outro já se defende?",
         "As conversas costumam terminar sem entendimento real?",
         "Evito determinados assuntos para não gerar conflito?",
         "Sinto que preciso me proteger emocionalmente nas conversas?"
       ]],
-      ["Desequilíbrio de troca" [
+      ["Desequilíbrio de troca", "Quando um sente que dá mais, carrega mais ou sustenta mais a relação.", [
         "Sinto que me esforço mais do que o outro para manter a relação?",
         "Costumo ceder para evitar problemas?",
         "Já me senti injustiçado(a) ou sobrecarregado(a) na relação?",
         "Sinto que carrego mais responsabilidades emocionais do que o outro?"
       ]],
-      ["Pai ou mãe do parceiro" [
+      ["Pai ou mãe do parceiro", "Quando a relação deixa de ser encontro e passa a ser cobrança, correção ou controle.", [
         "Costumo corrigir ou orientar meu parceiro com frequência?",
         "Sinto que preciso ensinar o outro a agir corretamente?",
         "Me irrito quando o outro não faz as coisas da forma que considero certa?",
         "Percebo que assumo responsabilidades que deveriam ser do outro?"
       ]],
-      ["Salvador(a)"[
+      ["Salvador(a)", "Quando alguém tenta manter tudo funcionando sozinho.", [
         "Sinto que, se eu parar de tentar, o relacionamento desmorona?",
         "Costumo resolver problemas que pertencem ao outro?",
         "Tenho dificuldade em deixar que o outro assuma as próprias responsabilidades?",
         "Frequentemente me sinto cansado(a) de carregar tudo sozinho(a)?"
       ]],
-      ["Fuga"[
+      ["Fuga", "Quando o silêncio, o afastamento ou a evitação parecem mais seguros do que conversar.", [
         "Evito conversas difíceis?",
         "Quando algo me incomoda, prefiro me fechar?",
         "Tenho dificuldade de expressar o que realmente sinto?",
         "Costumo me afastar emocionalmente diante dos conflitos?"
       ]],
-      ["Lugar de criança" [
+      ["Lugar de criança", "Quando medos antigos, carências emocionais ou dores do passado começam a conduzir o relacionamento.", [
         "Tenho medo constante de rejeição?",
         "Sinto necessidade frequente de aprovação?",
         "Reajo de forma intensa quando me sinto ignorado(a)?",
