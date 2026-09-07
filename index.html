@@ -392,7 +392,6 @@
       const [title, note, qs] = block;
       const section = document.createElement("section");
       section.className = "section";
-      section.innerHTML = `<h2>${title}</h2><p class="note">${note}</p>`;
 
       qs.forEach(q => {
         allQuestions.push({ block:title, question:q });
@@ -432,11 +431,11 @@
 
         if(!chosen){
           miss++;
-          answers.push(`${i}. — [${item.block}] ${item.question}`);
+          answers.push(`${i}. — ${item.question}`);
         } else {
           if(chosen.value === "SIM") yes++;
           if(chosen.value === "NÃO") no++;
-          answers.push(`${i}. ${chosen.value} — [${item.block}] ${item.question}`);
+          answers.push(`${i}. ${chosen.value} — ${item.question}`);
         }
       }
 
